@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xliff version="1.1">
+<file datatype="php" original="system/modules/mobile_only/languages/de/mobile_only.php" source-language="en">
+<body>
+    <trans-unit id="mobile_only.pc_only.0">
+        <source>Display on PC only</source>
+        <target>Nur auf Desktop anzeigen</target>
+    </trans-unit>
+    <trans-unit id="mobile_only.pc_only.1">
+        <source>This element will only be displayed on a PC.</source>
+        <target>Dieses Element wird nur auf Desktop angezeigt.</target>
+    </trans-unit>
+    <trans-unit id="mobile_only.mobile_only.0">
+        <source>Display on mobile device only</source>
+        <target>Nur auf Mobil-Geräten anzeigen</target>
+    </trans-unit>
+    <trans-unit id="mobile_only.mobile_only.1">
+        <source>This element will only be displayed on a mobile device.</source>
+        <target>Dieses Element wird nur auf Mobile-Geräten angezeigt.</target>
+    </trans-unit>
+    <trans-unit id="mobile_only.pc_mobile_only.err">
+        <source>Don't check both.</source>
+        <target>Nicht beide auswählen.</target>
+    </trans-unit>
+</body>
+</file>
+</xliff>
