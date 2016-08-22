@@ -5,7 +5,7 @@
  *
  * Copyright (c) 2005-2016 Leo Feyer
  *
- * @package   Rheinhessische
+ * @package   MobileOnly
  * @author    Benny Born <benny.born@numero2.de>
  * @author    Michael Bösherz <michael.boesherz@numero2.de>
  * @license   Commercial
@@ -18,7 +18,7 @@
  */
 ClassLoader::addNamespaces(array
 (
-    'numero2\mobile_only',
+    'numero2\MobileOnly',
 ));
 
 
@@ -28,10 +28,9 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
     // Classes
-    'numero2\mobile_only\mobile_only'                    => 'system/modules/mobile_only/classes/mobile_only.php',
+    'numero2\MobileOnly\MobileOnly'                    => 'system/modules/mobile_only/classes/MobileOnly.php',
 
     // Modules
-    'numero2\mobile_only\ModuleMobileOnlyNavigation'     => 'system/modules/mobile_only/modules/ModuleMobileOnlyNavigation.php',
+    'numero2\MobileOnly\ModuleMobileOnlyNavigation'     => 'system/modules/mobile_only/modules/ModuleMobileOnlyNavigation.php',
 
 ));
-

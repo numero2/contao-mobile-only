@@ -16,10 +16,10 @@
 /**
  * Namespace
  */
-namespace numero2\mobile_only;
+namespace numero2\MobileOnly;
 
 
-class mobile_only extends \System {
+class MobileOnly extends \System {
 
 
     /**
@@ -38,6 +38,7 @@ class mobile_only extends \System {
         return $value;
     }
 
+
     /**
      * Determins if an element is visible based on pc or mobile only flags
      *
@@ -51,14 +52,7 @@ class mobile_only extends \System {
 
         if( $objElement instanceof \ArticleModel || $objElement instanceof \ContentModel ){
 
-
             $mobile = \Environment::get('agent')->mobile;
-
-            // echo '<pre>'.print_r(var_dump($mobile),1).'</pre>';
-            // echo '<pre>'.print_r(var_dump($objElement->pc_only),1).'</pre>';
-            // echo '<pre>'.print_r(var_dump($objElement->mobile_only),1).'</pre>';
-
-
 
             // skip pages based on pc and mobile only
             if( $mobile && $objElement->pc_only ){

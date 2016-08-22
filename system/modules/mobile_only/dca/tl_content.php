@@ -5,7 +5,7 @@
  *
  * Copyright (c) 2005-2016 Leo Feyer
  *
- * @package   Rheinhessische
+ * @package   MobileOnly
  * @author    Benny Born <benny.born@numero2.de>
  * @author    Michael Bösherz <michael.boesherz@numero2.de>
  * @license   Commercial
@@ -13,13 +13,13 @@
  */
 
 
+ self::loadLanguageFile('mobile_only');
+
+
 /**
  * Add palettes to tl_content
  */
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['published'] = 'pc_only,mobile_only,'.$GLOBALS['TL_DCA']['tl_content']['subpalettes']['published'];
-
-
-self::loadLanguageFile('mobile_only');
 
 foreach ($GLOBALS['TL_DCA']['tl_content']['palettes'] as $key => $value) {
     if( $key == "__selector__" )
@@ -28,6 +28,12 @@ foreach ($GLOBALS['TL_DCA']['tl_content']['palettes'] as $key => $value) {
         $GLOBALS['TL_DCA']['tl_content']['palettes'][$key] = str_replace("invisible,start", "invisible,pc_only,mobile_only,start", $value);
     }
 }
+
+
+/**
+ * Overwrite child record callback
+ */
+$GLOBALS['TL_DCA']['tl_content']['list']['sorting']['child_record_callback'] = array('tl_content_mobile_only', 'addCteType');
 
 
 /**
@@ -46,3 +52,33 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['mobile_only'] = array(
 ,   'save_callback' => array(array("mobile_only", "save_callback" ))
 ,   'sql'       => "char(1) NOT NULL default ''"
 );
+
+
+class tl_content_mobile_only extends tl_content {
+
+
+    /**
+	 * Add the type of content element
+	 *
+	 * @param array $arrRow
+	 *
+	 * @return string
+	 */
+	public function addCteType($arrRow) {
+
+        $defaultRow = NULL;
+        $defaultRow = parent::addCteType($arrRow);
+
+        if( $arrRow['pc_only'] || $arrRow['mobile_only'] ) {
+
+            $title = $arrRow['pc_only'] ? $GLOBALS['TL_LANG']['mobile_only']['pc_only'][0] : $GLOBALS['TL_LANG']['mobile_only']['mobile_only'][0];
+
+            $row = NULL;
+            $row = preg_replace('/<div(.*?cte_type.*?)>(.*?)<\/div>/', '<div ${1}>${2} <span class="mobile-only">['.$title.']</span></div>', $defaultRow);
+
+            return $row;
+        }
+
+        return $defaultRow;
+	}
+}

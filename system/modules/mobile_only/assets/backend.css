@@ -1,0 +1,18 @@
+.mobile-only-icon[data-visibility] {
+
+    display: inline-block;
+    vertical-align: bottom;
+
+    width: 18px;
+    height: 18px;
+}
+
+    .mobile-only-icon[data-visibility="mobile"] {
+        background: url(mobile.png) no-repeat scroll center center;
+    }
+
+    .mobile-only-icon[data-visibility="desktop"] {
+        background: url(desktop.png) no-repeat scroll center center;
+    }
+
+.tl_content .cte_type .mobile-only { color: #333; }

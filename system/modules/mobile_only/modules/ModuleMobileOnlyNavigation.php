@@ -5,21 +5,21 @@
  *
  * Copyright (c) 2005-2016 Leo Feyer
  *
- * @package   Rheinhessische
+ * @package   MobileOnly
  * @author    Benny Born <benny.born@numero2.de>
  * @author    Michael Bösherz <michael.boesherz@numero2.de>
  * @license   Commercial
  * @copyright 2016 numero2 - Agentur für Internetdienstleistungen
  */
 
-namespace numero2\mobile_only;
+namespace numero2\MobileOnly;
 
 
 /**
  * Front end module "navigation".
  */
-class ModuleMobileOnlyNavigation extends \Module
-{
+class ModuleMobileOnlyNavigation extends \Module {
+
 
     /**
      * Template
@@ -33,7 +33,8 @@ class ModuleMobileOnlyNavigation extends \Module
      *
      * @return string
      */
-    public function generate(){
+    public function generate() {
+
         if( TL_MODE == 'BE' ){
             $objTemplate = new \BackendTemplate('be_wildcard');
 
@@ -55,7 +56,8 @@ class ModuleMobileOnlyNavigation extends \Module
     /**
      * Generate the module
      */
-    protected function compile(){
+    protected function compile() {
+
         /** @var \PageModel $objPage */
         global $objPage;
 
@@ -72,7 +74,8 @@ class ModuleMobileOnlyNavigation extends \Module
         $host = null;
 
         // Overwrite the domain and language if the reference page belongs to a differnt root page (see #3765)
-        if ($this->defineRoot && $this->rootPage > 0){
+        if ($this->defineRoot && $this->rootPage > 0) {
+
             $objRootPage = \PageModel::findWithDetails($this->rootPage);
 
             // Set the language
@@ -103,12 +106,12 @@ class ModuleMobileOnlyNavigation extends \Module
      *
      * @return string
      */
-    protected function renderNavigation($pid, $level=1, $host=null, $language=null){
+    protected function renderNavigation($pid, $level=1, $host=null, $language=null) {
+
         // Get all active subpages
         $objSubpages = \PageModel::findPublishedSubpagesWithoutGuestsByPid($pid, $this->showHidden, $this instanceof \ModuleSitemap);
 
-        if ($objSubpages === null)
-        {
+        if( $objSubpages === null ) {
             return '';
         }
 
@@ -116,15 +119,13 @@ class ModuleMobileOnlyNavigation extends \Module
         $groups = array();
 
         // Get all groups of the current front end user
-        if (FE_USER_LOGGED_IN)
-        {
+        if( FE_USER_LOGGED_IN ) {
             $this->import('FrontendUser', 'User');
             $groups = $this->User->groups;
         }
 
         // Layout template fallback
-        if ($this->navigationTpl == '')
-        {
+        if( $this->navigationTpl == '' ) {
             $this->navigationTpl = 'nav_default';
         }
 
@@ -144,15 +145,15 @@ class ModuleMobileOnlyNavigation extends \Module
         foreach( $objSubpages as $objSubpage ) {
 
             // Skip hidden sitemap pages
-            if ($this instanceof \ModuleSitemap && $objSubpage->sitemap == 'map_never') {
+            if( $this instanceof \ModuleSitemap && $objSubpage->sitemap == 'map_never' ) {
                 continue;
             }
 
             // skip pages based on pc and mobile only
-            if( $mobile && $objSubpage->pc_only ){
+            if( $mobile && $objSubpage->pc_only ) {
                 continue;
             }
-            if( (!$mobile) && $objSubpage->mobile_only ){
+            if( (!$mobile) && $objSubpage->mobile_only ) {
                 continue;
             }
 
@@ -160,48 +161,41 @@ class ModuleMobileOnlyNavigation extends \Module
             $_groups = deserialize($objSubpage->groups);
 
             // Override the domain (see #3765)
-            if ($host !== null)
-            {
+            if( $host !== null ) {
                 $objSubpage->domain = $host;
             }
 
             // Do not show protected pages unless a back end or front end user is logged in
-            if (!$objSubpage->protected || BE_USER_LOGGED_IN || (is_array($_groups) && count(array_intersect($_groups, $groups))) || $this->showProtected || ($this instanceof \ModuleSitemap && $objSubpage->sitemap == 'map_always'))
-            {
+            if( !$objSubpage->protected || BE_USER_LOGGED_IN || (is_array($_groups) && count(array_intersect($_groups, $groups))) || $this->showProtected || ($this instanceof \ModuleSitemap && $objSubpage->sitemap == 'map_always') ) {
+
                 // Check whether there will be subpages
-                if ($objSubpage->subpages > 0 && (!$this->showLevel || $this->showLevel >= $level || (!$this->hardLimit && ($objPage->id == $objSubpage->id || in_array($objPage->id, $this->Database->getChildRecords($objSubpage->id, 'tl_page'))))))
-                {
+                if( $objSubpage->subpages > 0 && (!$this->showLevel || $this->showLevel >= $level || (!$this->hardLimit && ($objPage->id == $objSubpage->id || in_array($objPage->id, $this->Database->getChildRecords($objSubpage->id, 'tl_page'))))) ) {
                     $subitems = $this->renderNavigation($objSubpage->id, $level, $host, $language);
                 }
 
                 $href = null;
 
                 // Get href
-                switch ($objSubpage->type)
-                {
+                switch( $objSubpage->type ) {
+
                     case 'redirect':
                         $href = $objSubpage->url;
 
-                        if (strncasecmp($href, 'mailto:', 7) === 0)
-                        {
+                        if( strncasecmp($href, 'mailto:', 7) === 0 ) {
                             $href = \StringUtil::encodeEmail($href);
                         }
                         break;
 
                     case 'forward':
-                        if ($objSubpage->jumpTo)
-                        {
+                        if( $objSubpage->jumpTo ) {
                             /** @var \PageModel $objNext */
                             $objNext = $objSubpage->getRelated('jumpTo');
-                        }
-                        else
-                        {
+                        } else {
                             $objNext = \PageModel::findFirstPublishedRegularByPid($objSubpage->id);
                         }
 
                         // Hide the link if the target page is invisible
-                        if ($objNext === null || !$objNext->published || ($objNext->start != '' && $objNext->start > time()) || ($objNext->stop != '' && $objNext->stop < time()))
-                        {
+                        if( $objNext === null || !$objNext->published || ($objNext->start != '' && $objNext->start > time()) || ($objNext->stop != '' && $objNext->stop < time()) ) {
                             continue(2);
                         }
 
@@ -217,8 +211,7 @@ class ModuleMobileOnlyNavigation extends \Module
                 $trail = in_array($objSubpage->id, $objPage->trail);
 
                 // Active page
-                if (($objPage->id == $objSubpage->id || $objSubpage->type == 'forward' && $objPage->id == $objSubpage->jumpTo) && !$this instanceof \ModuleSitemap && $href == \Environment::get('request'))
-                {
+                if( ($objPage->id == $objSubpage->id || $objSubpage->type == 'forward' && $objPage->id == $objSubpage->jumpTo) && !$this instanceof \ModuleSitemap && $href == \Environment::get('request') ) {
                     // Mark active forward pages (see #4822)
                     $strClass = (($objSubpage->type == 'forward' && $objPage->id == $objSubpage->jumpTo) ? 'forward' . ($trail ? ' trail' : '') : 'active') . (($subitems != '') ? ' submenu' : '') . ($objSubpage->protected ? ' protected' : '') . (($objSubpage->cssClass != '') ? ' ' . $objSubpage->cssClass : '');
 
@@ -227,13 +220,12 @@ class ModuleMobileOnlyNavigation extends \Module
                 }
 
                 // Regular page
-                else
-                {
+                else {
+
                     $strClass = (($subitems != '') ? 'submenu' : '') . ($objSubpage->protected ? ' protected' : '') . ($trail ? ' trail' : '') . (($objSubpage->cssClass != '') ? ' ' . $objSubpage->cssClass : '');
 
                     // Mark pages on the same level (see #2419)
-                    if ($objSubpage->pid == $objPage->pid)
-                    {
+                    if( $objSubpage->pid == $objPage->pid ) {
                         $strClass .= ' sibling';
                     }
 
@@ -252,8 +244,7 @@ class ModuleMobileOnlyNavigation extends \Module
                 $row['description'] = str_replace(array("\n", "\r"), array(' ' , ''), $objSubpage->description);
 
                 // Override the link target
-                if ($objSubpage->type == 'redirect' && $objSubpage->target)
-                {
+                if( $objSubpage->type == 'redirect' && $objSubpage->target ) {
                     $row['target'] = ($objPage->outputFormat == 'xhtml') ? ' onclick="return !window.open(this.href)"' : ' target="_blank"';
                 }
 
@@ -262,8 +253,8 @@ class ModuleMobileOnlyNavigation extends \Module
         }
 
         // Add classes first and last
-        if (!empty($items))
-        {
+        if( !empty($items) ) {
+
             $last = count($items) - 1;
 
             $items[0]['class'] = trim($items[0]['class'] . ' first');
@@ -274,5 +265,4 @@ class ModuleMobileOnlyNavigation extends \Module
 
         return !empty($items) ? $objTemplate->parse() : '';
     }
-
 }

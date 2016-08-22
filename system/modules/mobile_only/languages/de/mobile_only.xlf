@@ -4,19 +4,19 @@
 <body>
     <trans-unit id="mobile_only.pc_only.0">
         <source>Display on PC only</source>
-        <target>Nur auf Desktop anzeigen</target>
+        <target>Nur auf Desktop-PC's anzeigen</target>
     </trans-unit>
     <trans-unit id="mobile_only.pc_only.1">
         <source>This element will only be displayed on a PC.</source>
-        <target>Dieses Element wird nur auf Desktop angezeigt.</target>
+        <target>Dieses Element wird nur auf Desktop-PC's angezeigt.</target>
     </trans-unit>
     <trans-unit id="mobile_only.mobile_only.0">
         <source>Display on mobile device only</source>
-        <target>Nur auf Mobil-Geräten anzeigen</target>
+        <target>Nur auf mobilen Endgeräten anzeigen</target>
     </trans-unit>
     <trans-unit id="mobile_only.mobile_only.1">
         <source>This element will only be displayed on a mobile device.</source>
-        <target>Dieses Element wird nur auf Mobile-Geräten angezeigt.</target>
+        <target>Dieses Element wird nur auf mobilen Endgeräte angezeigt.</target>
     </trans-unit>
     <trans-unit id="mobile_only.pc_mobile_only.err">
         <source>Don't check both.</source>
