@@ -49,7 +49,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['mobile_only'] = array(
     'label'      => &$GLOBALS['TL_LANG']['mobile_only']['mobile_only']
 ,   'inputType'  => 'checkbox'
 ,   'eval'       => array( 'mandatory' => false, 'tl_class'=>'w50' )
-,   'save_callback' => array(array("mobile_only", "save_callback" ))
+,   'save_callback' => array(array('\numero2\MobileOnly\MobileOnly', "save_callback" ))
 ,   'sql'       => "char(1) NOT NULL default ''"
 );
 
