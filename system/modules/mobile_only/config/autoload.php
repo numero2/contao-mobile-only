@@ -32,5 +32,6 @@ ClassLoader::addClasses(array
 
     // Modules
     'numero2\MobileOnly\ModuleMobileOnlyNavigation'     => 'system/modules/mobile_only/modules/ModuleMobileOnlyNavigation.php',
+    'numero2\MobileOnly\ModuleMobileOnlyCustomnav'      => 'system/modules/mobile_only/modules/ModuleMobileOnlyCustomnav.php',
 
 ));

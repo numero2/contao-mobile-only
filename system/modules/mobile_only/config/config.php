@@ -24,6 +24,7 @@
  * FRONT END MODULES
  */
 $GLOBALS['FE_MOD']['navigationMenu']['navigation'] = 'numero2\MobileOnly\ModuleMobileOnlyNavigation';
+$GLOBALS['FE_MOD']['navigationMenu']['customnav'] = 'numero2\MobileOnly\ModuleMobileOnlyCustomnav';
 
 /**
  * REGISTER HOOKS
