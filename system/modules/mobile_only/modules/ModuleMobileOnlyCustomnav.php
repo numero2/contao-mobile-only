@@ -174,6 +174,8 @@ class ModuleMobileOnlyCustomnav extends \Module {
 				if ($objPage->id == $objModel->id && $href == \Environment::get('request'))
 				{
 					$strClass = trim($objModel->cssClass);
+                    $strClass .= ($objModel->pc_only?' pc_only':'') . ($objModel->mobile_only?' mobile_only':'');
+
 					$row = $objModel->row();
 
 					$row['isActive'] = true;
@@ -200,6 +202,7 @@ class ModuleMobileOnlyCustomnav extends \Module {
 				else
 				{
 					$strClass = trim($objModel->cssClass . ($trail ? ' trail' : ''));
+                    $strClass .= ($objModel->pc_only?' pc_only':'') . ($objModel->mobile_only?' mobile_only':'');
 					$row = $objModel->row();
 
 					$row['isActive'] = false;
