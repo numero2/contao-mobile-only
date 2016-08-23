@@ -49,6 +49,9 @@ class MobileOnly extends \System {
      */
     public function isVisibleHook( $objElement, $blnIsVisible ){
 
+        if( TL_MODE == "BE" ) {
+            return $blnIsVisible;
+        }
 
         if( $objElement instanceof \ArticleModel || $objElement instanceof \ContentModel ){
 
