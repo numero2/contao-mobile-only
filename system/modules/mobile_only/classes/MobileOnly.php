@@ -65,6 +65,16 @@ class MobileOnly extends \System {
                 return false;
             }
 
+            // add css classes to elements
+            $classes = $objElement->classes;
+            if( $objElement->pc_only ) {
+                $classes[] = 'pc_only';
+            }
+            if( $objElement->mobile_only ) {
+                $classes[] = 'mobile_only';
+            }
+            $objElement->classes = $classes;
+
             return true;
         }
 
