@@ -118,8 +118,8 @@ class ModuleMobileOnlyCustomnav extends \Module {
             if( $mobile && $v->pc_only ) {
                 return false;
             }
-            if( (!$mobile) && $v->mobile_only ) {
-                return false;
+			if( (!$v->display_mobile_elements) && ((!$mobile) && $v->mobile_only) ){
+				return false;
             }
 
             return true;

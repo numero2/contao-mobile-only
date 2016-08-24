@@ -18,6 +18,14 @@
         <source>This element will only be displayed on a mobile device.</source>
         <target>Dieses Element wird nur auf mobilen Endgeräte angezeigt.</target>
     </trans-unit>
+    <trans-unit id="mobile_only.display_mobile_elements.0">
+        <source>Display mobile elements</source>
+        <target>Mobile Element anzeigen</target>
+    </trans-unit>
+    <trans-unit id="mobile_only.display_mobile_elements.1">
+        <source>Display mobile only elements on PC</source>
+        <target>Zeigt Mobile Elemente auch auf Desktop-PC's an.</target>
+    </trans-unit>
     <trans-unit id="mobile_only.pc_mobile_only.err">
         <source>Don't check both.</source>
         <target>Nicht beide auswählen.</target>

@@ -153,7 +153,7 @@ class ModuleMobileOnlyNavigation extends \Module {
             if( $mobile && $objSubpage->pc_only ) {
                 continue;
             }
-            if( (!$mobile) && $objSubpage->mobile_only ) {
+            if( (!$objSubpage->display_mobile_elements) && ((!$mobile) && $objSubpage->mobile_only) ){
                 continue;
             }
 

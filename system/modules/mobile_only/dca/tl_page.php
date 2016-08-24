@@ -20,6 +20,13 @@
  * Add palettes to tl_page
  */
 $GLOBALS['TL_DCA']['tl_page']['subpalettes']['published'] = 'pc_only,mobile_only,'.$GLOBALS['TL_DCA']['tl_page']['subpalettes']['published'];
+foreach (array('regular','forward','redirect') as $key => $value) {
+    $GLOBALS['TL_DCA']['tl_page']['palettes'][$value] = str_replace(
+        "{layout_legend:hide},includeLayout;",
+        "{layout_legend},display_mobile_elements,includeLayout;",
+        $GLOBALS['TL_DCA']['tl_page']['palettes'][$value]);
+}
+$GLOBALS['TL_DCA']['tl_page']['subpalettes']['includeLayout'] = $GLOBALS['TL_DCA']['tl_page']['subpalettes']['includeLayout'].'';
 
 
 /**
@@ -42,6 +49,13 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['mobile_only'] = array(
 ,   'inputType'  => 'checkbox'
 ,   'eval'       => array( 'mandatory' => false, 'tl_class'=>'w50' )
 ,   'save_callback' => array(array('\numero2\MobileOnly\MobileOnly', "save_callback" ))
+,   'sql'       => "char(1) NOT NULL default ''"
+);
+// TODO make all checks respect this setting
+$GLOBALS['TL_DCA']['tl_page']['fields']['display_mobile_elements'] = array(
+    'label'      => &$GLOBALS['TL_LANG']['mobile_only']['display_mobile_elements']
+,   'inputType'  => 'checkbox'
+,   'eval'       => array( 'mandatory' => false )
 ,   'sql'       => "char(1) NOT NULL default ''"
 );
 

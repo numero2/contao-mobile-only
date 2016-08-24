@@ -56,12 +56,18 @@ class MobileOnly extends \System {
         if( $objElement instanceof \ArticleModel || $objElement instanceof \ContentModel ){
 
             $mobile = \Environment::get('agent')->mobile;
+            $display_mobile = false;
+
+            $page = \PageModel::findById($objElement->pid);
+            if( !empty($page->display_mobile_elements) ){
+                $display_mobile = $page->display_mobile_elements;
+            }
 
             // skip pages based on pc and mobile only
             if( $mobile && $objElement->pc_only ){
                 return false;
             }
-            if( (!$mobile) && $objElement->mobile_only ){
+            if( (!$display_mobile) && ((!$mobile) && $objElement->mobile_only) ){
                 return false;
             }
 
