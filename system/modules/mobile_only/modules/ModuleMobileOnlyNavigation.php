@@ -232,7 +232,7 @@ class ModuleMobileOnlyNavigation extends \Module {
                     $row['isActive'] = false;
                     $row['isTrail'] = $trail;
                 }
-                $strClass .= ($objSubpage->pc_only?' pc_only':'') . ($objSubpage->mobile_only?' mobile_only':'');
+                $strClass .= ($objSubpage->pc_only?' desktop-only':'') . ($objSubpage->mobile_only?' mobile-only':'');
 
                 $row['subitems'] = $subitems;
                 $row['class'] = trim($strClass);
