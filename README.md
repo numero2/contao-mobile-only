@@ -5,13 +5,13 @@ About
 -----
 
 Adds options for pages / articles / content elements to be only
-visible in desktop or mobile version .
+visible in desktop or mobile version.
 
 
 Installation
 -----------
 
-* Copy `system` folder into Contao installation
+* Copy contents of this repo into `system/modules/mobile_only`
 * Run database update via extension repository
 
 
