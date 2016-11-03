@@ -13,7 +13,8 @@
  */
 
 
- self::loadLanguageFile('mobile_only');
+self::loadLanguageFile('mobile_only');
+
 
 /**
  * Add palettes to tl_article
@@ -24,6 +25,7 @@ $GLOBALS['TL_DCA']['tl_article']['subpalettes']['published'] = 'pc_only,mobile_o
 /**
  * Overwrite label callback
  */
+$GLOBALS['TL_DCA']['tl_article']['list']['label']['label_callback_prev_mobile_only'] = $GLOBALS['TL_DCA']['tl_article']['list']['label']['label_callback'];
 $GLOBALS['TL_DCA']['tl_article']['list']['label']['label_callback'] = array('tl_article_mobile_only', 'addIcon');
 
 
@@ -60,6 +62,16 @@ class tl_article_mobile_only extends tl_article {
 
         $defaultIcon = NULL;
         $defaultIcon = parent::addIcon($row, $label);
+
+        if( !empty($GLOBALS['TL_DCA']['tl_article']['list']['label']['label_callback_prev_mobile_only']) ) {
+
+            $prevCb = NULL;
+            $prevCb = $GLOBALS['TL_DCA']['tl_article']['list']['label']['label_callback_prev_mobile_only'];
+
+            if( $prevCb[0] != 'tl_article_mobile_only' ) {
+                $defaultIcon = $prevCb[0]::$prevCb[1]($row, $label);
+            }
+        }
 
         if( $row['pc_only'] || $row['mobile_only'] ) {
 
