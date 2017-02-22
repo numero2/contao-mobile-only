@@ -68,7 +68,7 @@ class tl_article_mobile_only extends tl_article {
             $prevCb = NULL;
             $prevCb = $GLOBALS['TL_DCA']['tl_article']['list']['label']['label_callback_prev_mobile_only'];
 
-            if( $prevCb[0] != 'tl_article_mobile_only' ) {
+            if( $prevCb[0] != 'tl_article_mobile_only' && property_exists($prevCb[0], $prevCb[1]) ) {
                 $defaultIcon = $prevCb[0]::$prevCb[1]($row, $label);
             }
         }
