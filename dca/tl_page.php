@@ -3,17 +3,17 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (c) 2005-2016 Leo Feyer
+ * Copyright (c) 2005-2017 Leo Feyer
  *
- * @package   MobileOnly
+ * @package   Mobile Only
  * @author    Benny Born <benny.born@numero2.de>
  * @author    Michael Bösherz <michael.boesherz@numero2.de>
- * @license   Commercial
- * @copyright 2016 numero2 - Agentur für Internetdienstleistungen
+ * @license   LGPL
+ * @copyright 2017 numero2 - Agentur für Internetdienstleistungen
  */
 
 
- self::loadLanguageFile('mobile_only');
+self::loadLanguageFile('mobile_only');
 
 
 /**
@@ -22,11 +22,10 @@
 $GLOBALS['TL_DCA']['tl_page']['subpalettes']['published'] = 'pc_only,mobile_only,'.$GLOBALS['TL_DCA']['tl_page']['subpalettes']['published'];
 foreach (array('regular','forward','redirect') as $key => $value) {
     $GLOBALS['TL_DCA']['tl_page']['palettes'][$value] = str_replace(
-        "{layout_legend:hide},includeLayout;",
-        "{layout_legend},display_mobile_elements,includeLayout;",
+        ",includeLayout",
+        ",display_mobile_elements,includeLayout",
         $GLOBALS['TL_DCA']['tl_page']['palettes'][$value]);
 }
-$GLOBALS['TL_DCA']['tl_page']['subpalettes']['includeLayout'] = $GLOBALS['TL_DCA']['tl_page']['subpalettes']['includeLayout'].'';
 
 
 /**
@@ -42,21 +41,22 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['pc_only'] = array(
     'label'      => &$GLOBALS['TL_LANG']['mobile_only']['pc_only']
 ,   'inputType'  => 'checkbox'
 ,   'eval'       => array( 'mandatory' => false, 'tl_class'=>'w50' )
-,   'sql'       => "char(1) NOT NULL default ''"
+,   'sql'        => "char(1) NOT NULL default ''"
 );
+
 $GLOBALS['TL_DCA']['tl_page']['fields']['mobile_only'] = array(
     'label'      => &$GLOBALS['TL_LANG']['mobile_only']['mobile_only']
 ,   'inputType'  => 'checkbox'
 ,   'eval'       => array( 'mandatory' => false, 'tl_class'=>'w50' )
 ,   'save_callback' => array(array('\numero2\MobileOnly\MobileOnly', "save_callback" ))
-,   'sql'       => "char(1) NOT NULL default ''"
+,   'sql'        => "char(1) NOT NULL default ''"
 );
-// TODO make all checks respect this setting
+
 $GLOBALS['TL_DCA']['tl_page']['fields']['display_mobile_elements'] = array(
     'label'      => &$GLOBALS['TL_LANG']['mobile_only']['display_mobile_elements']
 ,   'inputType'  => 'checkbox'
 ,   'eval'       => array( 'mandatory' => false )
-,   'sql'       => "char(1) NOT NULL default ''"
+,   'sql'        => "char(1) NOT NULL default ''"
 );
 
 

@@ -3,13 +3,13 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (c) 2005-2016 Leo Feyer
+ * Copyright (c) 2005-2017 Leo Feyer
  *
- * @package   MobileOnly
+ * @package   Mobile Only
  * @author    Benny Born <benny.born@numero2.de>
  * @author    Michael Bösherz <michael.boesherz@numero2.de>
- * @license   Commercial
- * @copyright 2016 numero2 - Agentur für Internetdienstleistungen
+ * @license   LGPL
+ * @copyright 2017 numero2 - Agentur für Internetdienstleistungen
  */
 
 

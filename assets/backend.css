@@ -5,14 +5,11 @@
 
     width: 18px;
     height: 18px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
-    .mobile-only-icon[data-visibility="mobile"] {
-        background: url(mobile.png) no-repeat scroll center center;
-    }
-
-    .mobile-only-icon[data-visibility="desktop"] {
-        background: url(desktop.png) no-repeat scroll center center;
-    }
+    .mobile-only-icon[data-visibility="mobile"] { background-image: url(icon-mobile.svg); }
+    .mobile-only-icon[data-visibility="desktop"] { background-image: url(icon-desktop.svg); }
 
 .tl_content .cte_type .mobile-only { color: #333; }
