@@ -55,7 +55,7 @@ class MobileOnly extends \System {
             return $blnIsVisible;
         }
 
-        if( property_exists($objElement,'pc_only') || property_exists($objElement,'mobile_only') ){
+        if( isset($objElement->pc_only) || isset($objElement->mobile_only) ){
 
             $isMobileDevice = false;
             $isMobileDevice = \Environment::get('agent')->mobile;
