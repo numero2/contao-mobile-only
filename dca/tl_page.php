@@ -19,12 +19,28 @@ self::loadLanguageFile('mobile_only');
 /**
  * Add palettes to tl_page
  */
-$GLOBALS['TL_DCA']['tl_page']['subpalettes']['published'] = 'pc_only,mobile_only,'.$GLOBALS['TL_DCA']['tl_page']['subpalettes']['published'];
-foreach (array('regular','forward','redirect') as $key => $value) {
+
+if( !empty($GLOBALS['TL_DCA']['tl_page']['subpalettes']['published']) ) {
+
+    $GLOBALS['TL_DCA']['tl_page']['subpalettes']['published'] = 'pc_only,mobile_only,'.$GLOBALS['TL_DCA']['tl_page']['subpalettes']['published'];
+
+} else {
+
+    foreach( array('regular','forward','redirect') as $key => $value ) {
+        $GLOBALS['TL_DCA']['tl_page']['palettes'][$value] = str_replace(
+            ",published,",
+            ",published,pc_only,mobile_only,",
+            $GLOBALS['TL_DCA']['tl_page']['palettes'][$value]
+        );
+    }
+}
+
+foreach( array('regular','forward','redirect') as $key => $value ) {
     $GLOBALS['TL_DCA']['tl_page']['palettes'][$value] = str_replace(
         ",includeLayout",
         ",display_mobile_elements,includeLayout",
-        $GLOBALS['TL_DCA']['tl_page']['palettes'][$value]);
+        $GLOBALS['TL_DCA']['tl_page']['palettes'][$value]
+    );
 }
 
 
