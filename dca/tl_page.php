@@ -94,7 +94,7 @@ class tl_page_mobile_only extends tl_page {
     public function addIcon($row, $label, DataContainer $dc=null, $imageAttribute='', $blnReturnImage=false, $blnProtected=false) {
 
         $defaultIcon = NULL;
-        $defaultIcon = parent::addIcon($row, $label, $dc, $imageAttribute='', $blnReturnImage, $blnProtected);
+        $defaultIcon = parent::addIcon($row, $label, $dc, $imageAttribute, $blnReturnImage, $blnProtected);
 
         if( $row['pc_only'] || $row['mobile_only'] ) {
 
