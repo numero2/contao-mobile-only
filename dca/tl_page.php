@@ -47,7 +47,7 @@ foreach( array('regular','forward','redirect') as $key => $value ) {
 /**
  * Overwrite label callback
  */
-$GLOBALS['TL_DCA']['tl_page']['list']['label']['label_callback'] = array('tl_page_mobile_only', 'addIcon');
+$GLOBALS['TL_DCA']['tl_page']['list']['label']['label_callback'] = array('tl_page_mobile_only', 'addMobileIcon');
 
 
 /**
@@ -91,7 +91,7 @@ class tl_page_mobile_only extends tl_page {
     *
     * @return string
     */
-    public function addIcon($row, $label, DataContainer $dc=null, $imageAttribute='', $blnReturnImage=false, $blnProtected=false) {
+    public function addMobileIcon($row, $label, DataContainer $dc=null, $imageAttribute='', $blnReturnImage=false, $blnProtected=false) {
 
         $defaultIcon = NULL;
         $defaultIcon = parent::addIcon($row, $label, $dc, $imageAttribute, $blnReturnImage, $blnProtected);
