@@ -3,13 +3,13 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (c) 2005-2017 Leo Feyer
+ * Copyright (c) 2005-2020 Leo Feyer
  *
  * @package   Mobile Only
  * @author    Benny Born <benny.born@numero2.de>
  * @author    Michael Bösherz <michael.boesherz@numero2.de>
  * @license   LGPL
- * @copyright 2017 numero2 - Agentur für Internetdienstleistungen
+ * @copyright 2020 numero2 - Agentur für digitales Marketing GbR
  */
 
 
@@ -19,7 +19,6 @@ self::loadLanguageFile('mobile_only');
 /**
  * Add palettes to tl_page
  */
-
 if( !empty($GLOBALS['TL_DCA']['tl_page']['subpalettes']['published']) ) {
 
     $GLOBALS['TL_DCA']['tl_page']['subpalettes']['published'] = 'pc_only,mobile_only,'.$GLOBALS['TL_DCA']['tl_page']['subpalettes']['published'];

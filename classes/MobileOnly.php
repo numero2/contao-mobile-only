@@ -3,19 +3,16 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (c) 2005-2017 Leo Feyer
+ * Copyright (c) 2005-2020 Leo Feyer
  *
  * @package   Mobile Only
  * @author    Benny Born <benny.born@numero2.de>
  * @author    Michael Bösherz <michael.boesherz@numero2.de>
  * @license   LGPL
- * @copyright 2017 numero2 - Agentur für Internetdienstleistungen
+ * @copyright 2020 numero2 - Agentur für digitales Marketing GbR
  */
 
 
-/**
- * Namespace
- */
 namespace numero2\MobileOnly;
 
 
@@ -47,7 +44,7 @@ class MobileOnly extends \System {
      *
      * @return $blnIsVisible
      */
-    public function isVisibleHook( $objElement, $blnIsVisible ){
+    public function isVisibleHook( $objElement, $blnIsVisible ) {
 
         global $objPage;
 
@@ -55,32 +52,35 @@ class MobileOnly extends \System {
             return $blnIsVisible;
         }
 
-        if( isset($objElement->pc_only) || isset($objElement->mobile_only) ){
+        if( $blnIsVisible ) {
 
-            $isMobileDevice = false;
-            $isMobileDevice = \Environment::get('agent')->mobile;
+            if( isset($objElement->pc_only) || isset($objElement->mobile_only) ){
 
-            $showOnMobile = false;
+                $isMobileDevice = false;
+                $isMobileDevice = \Environment::get('agent')->mobile;
 
-            if( TL_MODE === "FE" && !empty($objPage->display_mobile_elements) ){
-                $showOnMobile = true;
+                $showOnMobile = false;
+
+                if( TL_MODE === "FE" && !empty($objPage->display_mobile_elements) ){
+                    $showOnMobile = true;
+                }
+
+                // skip pages based on pc and mobile only
+                if( $isMobileDevice && $objElement->pc_only ){
+                    return false;
+                }
+                if( !$showOnMobile && (!$isMobileDevice && $objElement->mobile_only) ){
+                    return false;
+                }
+
+                // add css classes to elements
+                $classes = $objElement->classes;
+                if( $objElement->pc_only ) { $classes[] = 'desktop-only'; }
+                if( $objElement->mobile_only ) { $classes[] = 'mobile-only'; }
+                $objElement->classes = $classes;
+
+                return true;
             }
-
-            // skip pages based on pc and mobile only
-            if( $isMobileDevice && $objElement->pc_only ){
-                return false;
-            }
-            if( !$showOnMobile && (!$isMobileDevice && $objElement->mobile_only) ){
-                return false;
-            }
-
-            // add css classes to elements
-            $classes = $objElement->classes;
-            if( $objElement->pc_only ) { $classes[] = 'desktop-only'; }
-            if( $objElement->mobile_only ) { $classes[] = 'mobile-only'; }
-            $objElement->classes = $classes;
-
-            return true;
         }
 
         // otherwise we don't want to change the visibility state
