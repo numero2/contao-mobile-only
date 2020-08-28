@@ -13,68 +13,80 @@
  */
 
 
- self::loadLanguageFile('mobile_only');
+self::loadLanguageFile('mobile_only');
 
 
 /**
- * Add palettes to tl_content
- */
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['published'] = 'pc_only,mobile_only,'.$GLOBALS['TL_DCA']['tl_content']['subpalettes']['published'];
-
-foreach ($GLOBALS['TL_DCA']['tl_content']['palettes'] as $key => $value) {
-    if( $key == "__selector__" )
-        continue;
-    if( strpos($value, "invisible,start") !== false ) {
-        $GLOBALS['TL_DCA']['tl_content']['palettes'][$key] = str_replace("invisible,start", "invisible,pc_only,mobile_only,start", $value);
-    }
-}
+ * Add onload callback
+*/
+$GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = ['tl_content_mobile_only', 'modifyPalettes'];
 
 
 /**
  * Overwrite child record callback
- */
-$GLOBALS['TL_DCA']['tl_content']['list']['sorting']['child_record_callback'] = array('tl_content_mobile_only', 'addCteType');
+*/
+$GLOBALS['TL_DCA']['tl_content']['list']['sorting']['child_record_callback'] = ['tl_content_mobile_only', 'addCteType'];
 
 
 /**
  * Add fields to tl_content
  */
-$GLOBALS['TL_DCA']['tl_content']['fields']['pc_only'] = array(
+$GLOBALS['TL_DCA']['tl_content']['fields']['pc_only'] = [
     'label'      => &$GLOBALS['TL_LANG']['mobile_only']['pc_only']
 ,   'inputType'  => 'checkbox'
-,   'eval'       => array( 'mandatory' => false, 'tl_class'=>'w50' )
+,   'eval'       => [ 'mandatory'=>false, 'tl_class'=>'w50' ]
 ,   'sql'       => "char(1) NOT NULL default ''"
-);
-$GLOBALS['TL_DCA']['tl_content']['fields']['mobile_only'] = array(
+];
+$GLOBALS['TL_DCA']['tl_content']['fields']['mobile_only'] = [
     'label'      => &$GLOBALS['TL_LANG']['mobile_only']['mobile_only']
 ,   'inputType'  => 'checkbox'
-,   'eval'       => array( 'mandatory' => false, 'tl_class'=>'w50' )
-,   'save_callback' => array(array('\numero2\MobileOnly\MobileOnly', "save_callback" ))
+,   'eval'       => [ 'mandatory'=>false, 'tl_class'=>'w50' ]
+,   'save_callback' => [['\numero2\MobileOnly\MobileOnly', 'save_callback' ]]
 ,   'sql'       => "char(1) NOT NULL default ''"
-);
+];
 
 
 class tl_content_mobile_only extends tl_content {
 
 
     /**
+     * Add our fields to all palettes
+     */
+    public function modifyPalettes() {
+
+        $GLOBALS['TL_DCA']['tl_content']['subpalettes']['published'] = 'pc_only,mobile_only,'.$GLOBALS['TL_DCA']['tl_content']['subpalettes']['published'];
+
+        foreach( $GLOBALS['TL_DCA']['tl_content']['palettes'] as $key => $value ) {
+
+            if( $key == "__selector__" )
+                continue;
+
+            if( strpos($value, "invisible,start") !== false ) {
+                $GLOBALS['TL_DCA']['tl_content']['palettes'][$key] = str_replace("invisible,start", "invisible,pc_only,mobile_only,start", $value);
+            }
+        }
+    }
+
+
+    /**
      * Add the type of content element
      *
-     * @param array $arrRow
+     * @param array $row
      *
      * @return string
      */
-    public function addCteType($arrRow) {
+    public function addCteType($row) {
 
         $defaultRow = NULL;
-        $defaultRow = parent::addCteType($arrRow);
+        $defaultRow = parent::addCteType($row);
 
-        if( $arrRow['pc_only'] || $arrRow['mobile_only'] ) {
+        if( $row['pc_only'] || $row['mobile_only'] ) {
 
-            $title = $arrRow['pc_only'] ? $GLOBALS['TL_LANG']['mobile_only']['pc_only'][0] : $GLOBALS['TL_LANG']['mobile_only']['mobile_only'][0];
+            $visibility = $row['pc_only'] ? 'desktop' : 'mobile';
+            $title = $row['pc_only'] ? $GLOBALS['TL_LANG']['mobile_only']['pc_only'][1] : $GLOBALS['TL_LANG']['mobile_only']['mobile_only'][1];
 
             $row = NULL;
-            $row = preg_replace('/<div(.*?cte_type.*?)>(.*?)<\/div>/', '<div ${1}>${2} <span class="mobile-only">['.$title.']</span></div>', $defaultRow);
+            $row = preg_replace('/<div(.*?cte_type.*?)>(.*?)<\/div>/', '<div ${1}><span class="mobile-only-icon" data-visibility="'.$visibility.'" title="'.$title.'"></span> ${2}</div>', $defaultRow);
 
             return $row;
         }

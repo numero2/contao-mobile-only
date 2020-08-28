@@ -25,20 +25,22 @@ if( !empty($GLOBALS['TL_DCA']['tl_page']['subpalettes']['published']) ) {
 
 } else {
 
-    foreach( array('regular','forward','redirect') as $key => $value ) {
+    foreach( ['regular','forward','redirect'] as $key => $value ) {
+
         $GLOBALS['TL_DCA']['tl_page']['palettes'][$value] = str_replace(
-            ",published,",
-            ",published,pc_only,mobile_only,",
-            $GLOBALS['TL_DCA']['tl_page']['palettes'][$value]
+            ',published,'
+        ,   ',published,pc_only,mobile_only,'
+        ,   $GLOBALS['TL_DCA']['tl_page']['palettes'][$value]
         );
     }
 }
 
-foreach( array('regular','forward','redirect') as $key => $value ) {
+foreach( ['regular','forward','redirect'] as $key => $value ) {
+
     $GLOBALS['TL_DCA']['tl_page']['palettes'][$value] = str_replace(
-        ",includeLayout",
-        ",display_mobile_elements,includeLayout",
-        $GLOBALS['TL_DCA']['tl_page']['palettes'][$value]
+        ',includeLayout'
+    ,   ',display_mobile_elements,includeLayout'
+    ,   $GLOBALS['TL_DCA']['tl_page']['palettes'][$value]
     );
 }
 
@@ -46,33 +48,31 @@ foreach( array('regular','forward','redirect') as $key => $value ) {
 /**
  * Overwrite label callback
  */
-$GLOBALS['TL_DCA']['tl_page']['list']['label']['label_callback'] = array('tl_page_mobile_only', 'addMobileIcon');
+$GLOBALS['TL_DCA']['tl_page']['list']['label']['label_callback'] = ['tl_page_mobile_only', 'addMobileIcon'];
 
 
 /**
  * Add fields to tl_page
  */
-$GLOBALS['TL_DCA']['tl_page']['fields']['pc_only'] = array(
+$GLOBALS['TL_DCA']['tl_page']['fields']['pc_only'] = [
     'label'      => &$GLOBALS['TL_LANG']['mobile_only']['pc_only']
 ,   'inputType'  => 'checkbox'
-,   'eval'       => array( 'mandatory' => false, 'tl_class'=>'w50' )
+,   'eval'       => [ 'mandatory'=>false, 'tl_class'=>'w50' ]
 ,   'sql'        => "char(1) NOT NULL default ''"
-);
-
-$GLOBALS['TL_DCA']['tl_page']['fields']['mobile_only'] = array(
+];
+$GLOBALS['TL_DCA']['tl_page']['fields']['mobile_only'] = [
     'label'      => &$GLOBALS['TL_LANG']['mobile_only']['mobile_only']
 ,   'inputType'  => 'checkbox'
-,   'eval'       => array( 'mandatory' => false, 'tl_class'=>'w50' )
-,   'save_callback' => array(array('\numero2\MobileOnly\MobileOnly', "save_callback" ))
+,   'eval'       => [ 'mandatory'=>false, 'tl_class'=>'w50' ]
+,   'save_callback' => [['\numero2\MobileOnly\MobileOnly', "save_callback" ]]
 ,   'sql'        => "char(1) NOT NULL default ''"
-);
-
-$GLOBALS['TL_DCA']['tl_page']['fields']['display_mobile_elements'] = array(
+];
+$GLOBALS['TL_DCA']['tl_page']['fields']['display_mobile_elements'] = [
     'label'      => &$GLOBALS['TL_LANG']['mobile_only']['display_mobile_elements']
 ,   'inputType'  => 'checkbox'
-,   'eval'       => array( 'mandatory' => false )
+,   'eval'       => [ 'mandatory'=>false ]
 ,   'sql'        => "char(1) NOT NULL default ''"
-);
+];
 
 
 class tl_page_mobile_only extends tl_page {
@@ -81,12 +81,12 @@ class tl_page_mobile_only extends tl_page {
     /**
     * Add an image to each page in the tree
     *
-    * @param array         $row
-    * @param string        $label
+    * @param array $row
+    * @param string $label
     * @param DataContainer $dc
-    * @param string        $imageAttribute
-    * @param boolean       $blnReturnImage
-    * @param boolean       $blnProtected
+    * @param string $imageAttribute
+    * @param boolean $blnReturnImage
+    * @param boolean $blnProtected
     *
     * @return string
     */
@@ -100,10 +100,10 @@ class tl_page_mobile_only extends tl_page {
             $visibility = $row['pc_only'] ? 'desktop' : 'mobile';
             $title = $row['pc_only'] ? $GLOBALS['TL_LANG']['mobile_only']['pc_only'][1] : $GLOBALS['TL_LANG']['mobile_only']['mobile_only'][1];
 
-            $icon = NULL;
-            $icon = preg_replace('/(<a.*?data-icon=.*?><\/a>)/', '${1}<span class="mobile-only-icon" data-visibility="'.$visibility.'" title="'.$title.'"></span>', $defaultIcon);
+            $row = NULL;
+            $row = preg_replace('/(<a.*?data-icon=.*?><\/a>)/', '${1}<span class="mobile-only-icon" data-visibility="'.$visibility.'" title="'.$title.'"></span>', $defaultIcon);
 
-            return $icon;
+            return $row;
         }
 
         return $defaultIcon;

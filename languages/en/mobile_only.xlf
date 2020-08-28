@@ -3,32 +3,25 @@
 <file datatype="php" original="system/modules/mobile_only/languages/en/mobile_only.php" source-language="en">
 <body>
     <trans-unit id="mobile_only.pc_only.0">
-        <source>Only show on Desktop</source>
-        <target>Only show on Desktop</target>
+        <source>Show only on desktop</source>
     </trans-unit>
     <trans-unit id="mobile_only.pc_only.1">
-        <source>This element will only be shown on Desktop computer.</source>
-        <target>This element will only be shown on Desktop computer.</target>
+        <source>This element is only displayed in desktop browsers.</source>
     </trans-unit>
     <trans-unit id="mobile_only.mobile_only.0">
-        <source>Only show on mobile device</source>
-        <target>Only show on mobile device</target>
+        <source>Show only on mobile devices</source>
     </trans-unit>
     <trans-unit id="mobile_only.mobile_only.1">
-        <source>This element will only be shown on a mobile device computer.</source>
-        <target>This element will only be shown on a mobile device computer.</target>
+        <source>This element is only displayed on mobile devices.</source>
     </trans-unit>
     <trans-unit id="mobile_only.display_mobile_elements.0">
         <source>Show mobile elements</source>
-        <target>Show mobile elements</target>
     </trans-unit>
     <trans-unit id="mobile_only.display_mobile_elements.1">
-        <source>Show mobile elements on Desktop computer.</source>
-        <target>Show mobile elements on Desktop computer.</target>
+        <source>Display elements for mobile devices on desktop browsers.</source>
     </trans-unit>
     <trans-unit id="mobile_only.pc_mobile_only.err">
         <source>Don't check both.</source>
-        <target>Nicht beide auswählen.</target>
     </trans-unit>
 </body>
 </file>

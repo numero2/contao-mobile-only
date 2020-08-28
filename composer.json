@@ -1,9 +1,10 @@
 {
     "name": "numero2/contao-mobile-only",
     "type": "contao-module",
+    "description": "Control the visibility of pages, articles and elements on desktop and mobile devices.",
     "license": "LGPL-3.0+",
     "authors": [{
-            "name": "numero2 - Agentur für Internetdienstleistungen",
+            "name": "numero2 - Agentur für digitales Marketing",
             "homepage": "http://www.numero2.de"
         }
     ],
